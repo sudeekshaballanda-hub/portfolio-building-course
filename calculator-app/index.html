@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Glassmorphic Calculator</title>
+    <!-- Link to Google Font for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Link to custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background glowing decorative circles for the glassmorphism effect -->
+    <div class="glow-bg">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="calculator-container">
+        <!-- Header / Logo section for premium feel -->
+        <header class="calculator-header">
+            <span class="brand-logo">NEXUS</span>
+            <span class="mode-badge">STANDARD V1.0</span>
+        </header>
+
+        <!-- Calculator Screen -->
+        <section class="calculator-screen" aria-label="Calculator display screen">
+            <!-- Memory status badge -->
+            <div id="memory-indicator" class="memory-indicator hidden" aria-label="Value stored in memory">M</div>
+            <!-- Display area for the complete expression being built -->
+            <div id="expression-display" class="expression-display" aria-live="polite" placeholder=""></div>
+            <!-- Display area for the active operand, error messages, or final result -->
+            <div id="result-display" class="result-display" aria-live="polite">0</div>
+        </section>
+
+        <!-- Keypad / Buttons Grid -->
+        <section class="calculator-keypad" aria-label="Calculator keypad">
+            <!-- Row 0: Memory Buttons -->
+            <button id="btn-mc" class="btn btn-memory" data-memory="MC" aria-label="Memory Clear">MC</button>
+            <button id="btn-mr" class="btn btn-memory" data-memory="MR" aria-label="Memory Recall">MR</button>
+            <button id="btn-mplus" class="btn btn-memory" data-memory="M+" aria-label="Memory Add">M+</button>
+            <button id="btn-mminus" class="btn btn-memory" data-memory="M-" aria-label="Memory Subtract">M−</button>
+
+            <!-- Row 1: Actions and Main Operators -->
+            <button id="btn-clear" class="btn btn-action" data-action="clear" aria-label="Clear all inputs">C</button>
+            <button id="btn-delete" class="btn btn-action" data-action="delete" aria-label="Delete last character">⌫</button>
+            <button id="btn-divide" class="btn btn-operator" data-operator="/" aria-label="Divide">÷</button>
+            <button id="btn-multiply" class="btn btn-operator" data-operator="*" aria-label="Multiply">×</button>
+
+            <!-- Row 2: Numbers and Operator -->
+            <button class="btn btn-num" data-val="7" aria-label="7">7</button>
+            <button class="btn btn-num" data-val="8" aria-label="8">8</button>
+            <button class="btn btn-num" data-val="9" aria-label="9">9</button>
+            <button id="btn-subtract" class="btn btn-operator" data-operator="-" aria-label="Subtract">-</button>
+
+            <!-- Row 3: Numbers and Operator -->
+            <button class="btn btn-num" data-val="4" aria-label="4">4</button>
+            <button class="btn btn-num" data-val="5" aria-label="5">5</button>
+            <button class="btn btn-num" data-val="6" aria-label="6">6</button>
+            <button id="btn-add" class="btn btn-operator" data-operator="+" aria-label="Add">+</button>
+
+            <!-- Row 4: Numbers and Operator/Decimal -->
+            <button class="btn btn-num" data-val="1" aria-label="1">1</button>
+            <button class="btn btn-num" data-val="2" aria-label="2">2</button>
+            <button class="btn btn-num" data-val="3" aria-label="3">3</button>
+            <button id="btn-decimal" class="btn btn-num" data-val="." aria-label="Decimal point">.</button>
+
+            <!-- Row 5: Large Zero and Equals Buttons -->
+            <button class="btn btn-num btn-zero" data-val="0" aria-label="0">0</button>
+            <button id="btn-equals" class="btn btn-equals" data-action="calculate" aria-label="Calculate equals">=</button>
+        </section>
+        
+        <!-- Keyboard shortcuts tip footer -->
+        <footer class="calculator-footer">
+            <p>Keyboard shortcuts active • <kbd>Esc</kbd> Clear • <kbd>Alt+C</kbd> MC • <kbd>Alt+R</kbd> MR • <kbd>Alt+P</kbd> M+ • <kbd>Alt+M</kbd> M-</p>
+        </footer>
+    </main>
+
+    <!-- Link to calculator controller script -->
+    <script src="script.js"></script>
+</body>
+</html>

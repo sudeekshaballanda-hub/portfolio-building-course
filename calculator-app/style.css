@@ -1,0 +1,408 @@
+/* ==========================================================================
+   Design System & Custom Properties
+   ========================================================================== */
+:root {
+    /* Color Palette (HSL Tailored) */
+    --bg-dark: hsl(222, 47%, 11%);
+    --card-bg: hsla(220, 40%, 15%, 0.45);
+    --card-border: hsla(220, 40%, 80%, 0.08);
+    --glow-color-1: hsl(263, 80%, 50%);
+    --glow-color-2: hsl(197, 85%, 50%);
+    
+    /* Button Theme Colors */
+    --color-text-primary: hsl(210, 40%, 98%);
+    --color-text-secondary: hsl(215, 20%, 65%);
+    
+    --btn-num-bg: hsla(220, 20%, 98%, 0.05);
+    --btn-num-hover: hsla(220, 20%, 98%, 0.12);
+    --btn-num-border: hsla(220, 20%, 98%, 0.05);
+    
+    --btn-operator-bg: hsla(263, 60%, 50%, 0.2);
+    --btn-operator-hover: hsla(263, 70%, 50%, 0.35);
+    --btn-operator-text: hsl(263, 100%, 75%);
+    --btn-operator-border: hsla(263, 60%, 50%, 0.25);
+    
+    --btn-action-bg: hsla(0, 70%, 50%, 0.15);
+    --btn-action-hover: hsla(0, 80%, 50%, 0.28);
+    --btn-action-text: hsl(0, 100%, 75%);
+    --btn-action-border: hsla(0, 70%, 50%, 0.2);
+    
+    --btn-memory-bg: hsla(180, 50%, 50%, 0.08);
+    --btn-memory-hover: hsla(180, 60%, 50%, 0.2);
+    --btn-memory-text: hsl(180, 100%, 75%);
+    --btn-memory-border: hsla(180, 50%, 50%, 0.12);
+    
+    --btn-equals-gradient: linear-gradient(135deg, hsl(32, 98%, 56%), hsl(14, 98%, 50%));
+    --btn-equals-hover: linear-gradient(135deg, hsl(32, 100%, 61%), hsl(14, 100%, 55%));
+    --btn-equals-shadow: hsla(20, 100%, 50%, 0.35);
+
+    /* Fonts & Radii */
+    --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   Global Reset & Base Setup
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--bg-dark);
+    color: var(--color-text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+}
+
+/* ==========================================================================
+   Background Aesthetics (Glow Effects)
+   ========================================================================== */
+.glow-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.4;
+    mix-blend-mode: screen;
+}
+
+.circle-1 {
+    width: 350px;
+    height: 350px;
+    background: var(--glow-color-1);
+    top: 15%;
+    left: 20%;
+    animation: floatCircle1 20s infinite ease-in-out alternate;
+}
+
+.circle-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--glow-color-2);
+    bottom: 15%;
+    right: 20%;
+    animation: floatCircle2 25s infinite ease-in-out alternate;
+}
+
+@keyframes floatCircle1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(60px, 40px) scale(1.15); }
+}
+
+@keyframes floatCircle2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-80px, -50px) scale(0.9); }
+}
+
+/* ==========================================================================
+   Calculator Card Layout
+   ========================================================================== */
+.calculator-container {
+    width: 100%;
+    max-width: 380px;
+    background: var(--card-bg);
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+/* Brand Header */
+.calculator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid hsla(220, 20%, 98%, 0.05);
+    padding-bottom: 10px;
+}
+
+.brand-logo {
+    color: var(--color-text-primary);
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--btn-operator-text), hsl(197, 85%, 65%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mode-badge {
+    background: hsla(220, 20%, 98%, 0.06);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.65rem;
+}
+
+/* ==========================================================================
+   Screen/Display Area
+   ========================================================================== */
+.calculator-screen {
+    position: relative; /* Support absolute memory-indicator alignment */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 120px;
+    padding: 12px 8px;
+    word-break: break-all;
+    word-wrap: break-word;
+    text-align: right;
+    border-radius: var(--radius-md);
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.expression-display {
+    min-height: 24px;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Hide scrollbar for clean UI */
+}
+
+.expression-display::-webkit-scrollbar {
+    display: none;
+}
+
+.result-display {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    scrollbar-width: none;
+    transition: font-size 0.15s ease;
+}
+
+.result-display::-webkit-scrollbar {
+    display: none;
+}
+
+/* Small adjustments for longer answers */
+.result-display.long-output {
+    font-size: 1.8rem;
+}
+
+/* Memory indicator status badge */
+.memory-indicator {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--btn-memory-text);
+    background: hsla(180, 60%, 50%, 0.12);
+    border: 1px solid hsla(180, 60%, 50%, 0.25);
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 0 10px hsla(180, 60%, 50%, 0.15);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.memory-indicator.hidden {
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Keypad & Interactive Buttons
+   ========================================================================== */
+.calculator-keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.btn {
+    font-family: var(--font-primary);
+    font-size: 1.3rem;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    border-radius: var(--radius-md);
+    aspect-ratio: 1; /* Keep buttons square */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Tactile Active Compression Effect */
+.btn:active {
+    transform: scale(0.92);
+}
+
+/* Focus styles for keyboard accessibility */
+.btn:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-text-primary);
+}
+
+/* Grid adjustments for wide elements */
+.btn-zero {
+    grid-column: span 2;
+    aspect-ratio: auto;
+    height: 100%;
+}
+
+.btn-equals {
+    grid-column: span 2;
+    aspect-ratio: auto;
+    height: 100%;
+    background: var(--btn-equals-gradient);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px var(--btn-equals-shadow);
+}
+
+.btn-equals:hover {
+    background: var(--btn-equals-hover);
+    box-shadow: 0 6px 20px var(--btn-equals-shadow);
+    transform: translateY(-2px);
+}
+
+.btn-equals:active {
+    transform: translateY(1px) scale(0.96);
+}
+
+/* Button Category Coloring */
+.btn-num {
+    background: var(--btn-num-bg);
+    color: var(--color-text-primary);
+    border: 1px solid var(--btn-num-border);
+}
+
+.btn-num:hover {
+    background: var(--btn-num-hover);
+    transform: translateY(-2px);
+}
+
+.btn-operator {
+    background: var(--btn-operator-bg);
+    color: var(--btn-operator-text);
+    border: 1px solid var(--btn-operator-border);
+    font-size: 1.4rem;
+}
+
+.btn-operator:hover {
+    background: var(--btn-operator-hover);
+    transform: translateY(-2px);
+}
+
+.btn-action {
+    background: var(--btn-action-bg);
+    color: var(--btn-action-text);
+    border: 1px solid var(--btn-action-border);
+}
+
+.btn-action:hover {
+    background: var(--btn-action-hover);
+    transform: translateY(-2px);
+}
+
+.btn-memory {
+    background: var(--btn-memory-bg);
+    color: var(--btn-memory-text);
+    border: 1px solid var(--btn-memory-border);
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.btn-memory:hover {
+    background: var(--btn-memory-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px hsla(180, 60%, 50%, 0.12);
+}
+
+/* ==========================================================================
+   Footer Tips
+   ========================================================================== */
+.calculator-footer {
+    text-align: center;
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.02em;
+    margin-top: 5px;
+}
+
+.calculator-footer kbd {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.65rem;
+    font-family: inherit;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 400px) {
+    body {
+        padding: 12px;
+    }
+    
+    .calculator-container {
+        padding: 18px;
+        gap: 16px;
+        border-radius: var(--radius-md);
+    }
+    
+    .result-display {
+        font-size: 2.2rem;
+    }
+    
+    .btn {
+        font-size: 1.15rem;
+        border-radius: 12px;
+    }
+    
+    .btn-equals {
+        font-size: 1.35rem;
+    }
+}
